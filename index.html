@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body style="background:#0f0c29; color:white; text-align:center; padding:50px; font-family:sans-serif;">
+    <div style="border:2px solid #00d2ff; padding:30px; border-radius:15px; display:inline-block;">
+        <h1>Lucky Studio 🚀</h1>
+        <p>Ek click mein APK banna shuru ho jayega</p>
+        <button style="padding:15px 30px; background:#e94560; color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;" onclick="makeAPK()">BUILD APK NOW</button>
+        <p id="st" style="margin-top:20px; color:#00ff88; font-weight:bold;"></p>
+    </div>
+
+    <script>
+    async function makeAPK() {
+        const token = "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"; 
+        const url = "https://api.github.com/repos/ellenabadhr51-byte/-my-studio-/actions/workflows/build.yml/dispatches";
+        document.getElementById('st').innerText = "Rukiye... Factory shuru ho rahi hai ⚙️";
+        
+        try {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' },
+                body: JSON.stringify({ ref: 'main' })
+            });
+            if(res.ok) {
+                document.getElementById('st').innerText = "Mubarak ho! APK banna shuru ho gaya. Actions tab check karein.";
+            } else {
+                document.getElementById('st').innerText = "Error! Token check karein.";
+            }
+        } catch(e) {
+            document.getElementById('st').innerText = "Network problem!";
+        }
+    }
+    </script>
+</body>
+</html>
