@@ -8,27 +8,32 @@
         <p id="st" style="margin-top:20px; color:#00ff88; font-weight:bold;"></p>
     </div>
 
-    <script>
     async function makeAPK() {
-        const token =  "";
-        const url = "https://api.github.com/repos/ellenabadhr51-byte/-my-studio-/actions/workflows/build.yml/dispatches";
-        document.getElementById('st').innerText = "Rukiye... Factory shuru ho rahi hai ⚙️";
-        
-        try {
-            const res = await fetch(url, {
-                method: 'POST',
-                headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' },
-                body: JSON.stringify({ ref: 'main' })
-            });
-            if(res.ok) {
-                document.getElementById('st').innerText = "Mubarak ho! APK banna shuru ho gaya. Actions tab check karein.";
-            } else {
-                document.getElementById('st').innerText = "Error! Token check karein.";
-            }
-        } catch(e) {
-            document.getElementById('st').innerText = "Network problem!";
+    const url = "https://api.github.com/repos/narutolucky94-art/-my-studio-/dispatches";
+    const userToken = prompt("Apna GitHub Token yahan dalein:"); // Ye sirf aapko pata hoga
+
+    if (!userToken) return;
+    document.getElementById('st').innerText = "Process shuru ho rahi hai...";
+
+    try {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Authorization': `token ${userToken}`,
+                'Accept': 'application/vnd.github.v3+json'
+            },
+            body: JSON.stringify({ event_type: 'build-apk' })
+        });
+
+        if(res.ok) {
+            document.getElementById('st').innerText = "Mubarak ho! APK banna shuru ho gaya. Actions tab check karein.";
+        } else {
+            document.getElementById('st').innerText = "Error! Token galat hai.";
         }
+    } catch(e) {
+        document.getElementById('st').innerText = "Network Error!";
     }
-    </script>
+}
+    
 </body>
 </html>
