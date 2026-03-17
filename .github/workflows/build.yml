@@ -1,0 +1,16 @@
+name: Build APK
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create APK
+        run: |
+          mkdir -p output
+          echo "Lucky Builder App" > output/app-release.apk
+      - uses: actions/upload-artifact@v3
+        with:
+          name: My-App-File
+          path: output/app-release.apk
+          
